@@ -1,0 +1,70 @@
+[33mcommit e13e43b62e76b231d2ba898366df3945c22380f5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: nevil <nevil.oporo@student.moringaschool.com>
+Date:   Tue May 27 01:00:07 2025 +0300
+
+    initial commit
+
+[33mcommit 7c8f62b8fbee389ab83cee470893ac5bc826d5d0[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Mon Nov 20 11:52:53 2023 -0500
+
+    AUTO: update .canvas file
+
+[33mcommit 45245a91947564c0132dbaa944b2cc4bbdfea5e9[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Fri Nov 17 15:55:42 2023 -0500
+
+    AUTO: replace github workflow
+
+[33mcommit 38c7ce4df2045aa9876543bead99e307a97a7644[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Tue Jun 27 11:30:09 2023 -0400
+
+    Update instructions
+    
+    Include .github folder in list of things to delete
+
+[33mcommit d5cd75201b0513ee93aa3cf564552a048450e7b7[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Tue Jun 27 11:22:45 2023 -0400
+
+    Add Github workflow
+
+[33mcommit 0833f722f97566c85e9b1a411c23aa4974b03a5f[m
+Merge: ee200fc a7cde7b
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Tue Jun 27 11:21:43 2023 -0400
+
+    Merge pull request #1 from learn-co-curriculum/lizbur10-patch-1
+    
+    Typo fix
+
+[33mcommit ee200fc36b0238280dd948b9ea63e4ef41f9e081[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Tue Jun 27 11:20:47 2023 -0400
+
+    Fix GitHub link
+
+[33mcommit a7cde7b95589c5168e54b42d2e2e2f2e3b99861a[m
+Author: Liz Burton <liz.burton147@gmail.com>
+Date:   Fri Mar 24 15:58:31 2023 -0400
+
+    Typo fix
+
+[33mcommit 85fbb6087943cbd8979994e25cf2a3884138839f[m
+Author: Ben Botsford <ben.botsford@flatironschool.com>
+Date:   Fri Mar 3 13:10:57 2023 -0600
+
+    remove extraneous horizontal rule
+
+[33mcommit 9545fb2424a9923baaf8c71a37e671e3f9a3c50f[m
+Author: Ben Botsford <ben.botsford@flatironschool.com>
+Date:   Fri Mar 3 13:08:51 2023 -0600
+
+    create canvas lesson
+
+[33mcommit 4c71435cec81749bb23c58c25bfde31073f913e4[m
+Author: Ben Botsford <ben.botsford@flatironschool.com>
+Date:   Fri Mar 3 13:07:24 2023 -0600
+
+    finish v1
