@@ -1,24 +1,44 @@
-class Pizza:
-    _id_counter = 1
-    _menu = []
+from db import CURSOR, CONN
+import json
 
-    def __init__(self, name, size, toppings, price):
-        self.id = Pizza._id_counter
+class Pizza:
+    def __init__(self, name, size, toppings, price, id=None):
+        self.id = id
         self.name = name
         self.size = size
-        self.toppings = toppings
+        self.toppings = toppings  # list
         self.price = price
-        Pizza._id_counter += 1
-        Pizza._menu.append(self)
 
-    def __repr__(self):
-        toppings_str = ', '.join(self.toppings)
-        return f"<Pizza {self.id}: {self.name} ({self.size}) - ${self.price:.2f} [{toppings_str}]>"
-    
-    def list_maenu(cls):
-        return cls._menu.copy()
-    
-    def get_pizza_by_id(cls, pizza_id):
-        return next((pizza for pizza in cls._menu if pizza.id == pizza_id), None)
-    
-    
+    def save(self):
+        toppings_str = json.dumps(self.toppings)
+        if self.id:
+            CURSOR.execute(
+                "UPDATE pizzas SET name = ?, size = ?, toppings = ?, price = ? WHERE id = ?",
+                (self.name, self.size, toppings_str, self.price, self.id)
+            )
+        else:
+            CURSOR.execute(
+                "INSERT INTO pizzas (name, size, toppings, price) VALUES (?, ?, ?, ?)",
+                (self.name, self.size, toppings_str, self.price)
+            )
+            self.id = CURSOR.lastrowid
+        CONN.commit()
+
+    @classmethod
+    def get_by_id(cls, id):
+        CURSOR.execute("SELECT * FROM pizzas WHERE id = ?", (id,))
+        row = CURSOR.fetchone()
+        return cls(id=row[0], name=row[1], size=row[2], toppings=json.loads(row[3]), price=row[4]) if row else None
+
+    @classmethod
+    def get_all(cls):
+        CURSOR.execute("SELECT * FROM pizzas")
+        return [
+            cls(id=row[0], name=row[1], size=row[2], toppings=json.loads(row[3]), price=row[4])
+            for row in CURSOR.fetchall()
+        ]
+
+    def delete(self):
+        if self.id:
+            CURSOR.execute("DELETE FROM pizzas WHERE id = ?", (self.id,))
+            CONN.commit()

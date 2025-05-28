@@ -1,29 +1,37 @@
-class User:
-    _id_counter = 1
-    _users = []
+from db import CONN, CURSOR
 
-    def __init__(self, name, email):
-        self.id = User._id_counter
+class User:
+    def __init__(self, name, email, id=None):
+        self.id = id
         self.name = name
         self.email = email
-        User._id_counter += 1
-        User._users.append(self)
 
+    def save(self):
+        if self.id:
+            CURSOR.execute(
+                "UPDATE users SET name = ?, email = ? WHERE id = ?",
+                (self.name, self.email, self.id)
+            )
+        else:
+            CURSOR.execute(
+                "INSERT INTO users (name, email) VALUES (?, ?)",
+                (self.name, self.email)
+            )
+            self.id = CURSOR.lastrowid
+        CONN.commit()
 
-    def __repr__(self):
-        return f"<User {self.id}: {self.name} ({self.email})>"
-    
-    
-    def create_user(cls, name, email):
-        if any (user.email == email for user in cls._users):
-            raise ValueError("User with this email already exists.")
-        return cls(name, email)
-    
-    def get_user_by_id(cls, user_id):
-        return next ((user for user in cls._users.id == user_id), None)
-    
-    def get_user_by_email(cls, email):
-        return next ((user for user in cls._users if user.email == email), None)
-    
-    def list_users(cls):
-        return cls._users.copy()
+    @classmethod
+    def get_by_id(cls, id):
+        CURSOR.execute("SELECT * FROM users WHERE id = ?", (id,))
+        row = CURSOR.fetchone()
+        return cls(id=row[0], name=row[1], email=row[2]) if row else None
+
+    @classmethod
+    def get_all(cls):
+        CURSOR.execute("SELECT * FROM users")
+        return [cls(id=row[0], name=row[1], email=row[2]) for row in CURSOR.fetchall()]
+
+    def delete(self):
+        if self.id:
+            CURSOR.execute("DELETE FROM users WHERE id = ?", (self.id,))
+            CONN.commit()

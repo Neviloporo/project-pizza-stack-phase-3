@@ -1,25 +1,13 @@
 from Order import Order
+from db import CURSOR
 
 class OrderList:
-    
+
+    @staticmethod
     def list_all_orders():
-        return Order.list_all_orders()
-    
-    def list_pending_orders():
-        return [order for order in Order.List_all_orders() if not order.completed]
-    
-    def list_completed_orders():
-        return [order for order in Order.list_all_order() if order.completed]
-    
-    def list_orders_by_user(user_id):
-        return Order.list_orders_by_user(user_id)
-    
-    def mark_order_completed(order_id):
-        order = Order.get_order_by_id(order_id)
-        if order:
-            order.mark_completed()
-            return True
-        return False
-    
-    def get_order_by_id(order_id):
-        return Order.get_order_by_id(order_id)
+        CURSOR.execute("SELECT * FROM orders")
+        rows = CURSOR.fetchall()
+        return [
+            Order(id=row[0], user_id=row[1], pizza_id=row[2], quantity=row[3], completed=bool(row[4]))
+            for row in rows
+        ]
