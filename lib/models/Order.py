@@ -24,7 +24,7 @@ class Order:
             self.id = CURSOR.lastrowid
         CONN.commit()
 
-    
+    @classmethod
     def get_all(cls):
         """Return a list of all Order instances from the database."""
         CURSOR.execute("SELECT * FROM orders")

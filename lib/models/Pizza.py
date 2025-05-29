@@ -26,11 +26,14 @@ class Pizza:
         
         CURSOR.execute("DELETE FROM pizza_toppings WHERE pizza_id = ?", (self.id,))
         for topping in self.toppings:
-            CURSOR.execute("INSERT INTO pizza_toppings (pizza_id, topping) VALUES (?, ?)", (self.id, topping))
+            CURSOR.execute(
+                "INSERT INTO pizza_toppings (pizza_id, topping) VALUES (?, ?)",
+                (self.id, topping)
+            )
 
         CONN.commit()
 
-    
+    @classmethod
     def get_all(cls):
         """Return a list of all pizzas with their toppings."""
         CURSOR.execute("SELECT * FROM pizzas")
@@ -45,7 +48,7 @@ class Pizza:
 
         return pizzas
 
-    
+    @classmethod
     def find_by_id(cls, pizza_id):
         """Find a pizza by its ID."""
         CURSOR.execute("SELECT * FROM pizzas WHERE id = ?", (pizza_id,))

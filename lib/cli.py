@@ -2,7 +2,7 @@ from lib.models.User import User
 from lib.models.Pizza import Pizza
 from lib.models.Order import Order
 from lib.models.OrderList import OrderList
-from helpers import get_input
+from .helpers import get_input
 
 def display_users():
     users = User.get_all()

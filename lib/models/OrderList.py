@@ -1,4 +1,4 @@
-from Order import Order  
+from .Order import Order  
 
 class OrderList:
     @staticmethod

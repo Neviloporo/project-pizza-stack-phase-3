@@ -1,4 +1,6 @@
 from lib.db import CURSOR, CONN
+from lib.models.User import User
+from lib.models.Pizza import Pizza
 
 def create_tables():
     CURSOR.execute("""
@@ -35,18 +37,22 @@ def create_tables():
         )
     """)
     CONN.commit()
+    print("Tables created (if they did not exist).")
 
 def seed_data():
-    from lib.models.User import User
-    from lib.models.Pizza import Pizza
-
-    
-    users = [
-        User("Abby", "abby@example.com"),
-        User("Trevis", "trevis@example.com"),
-    ]
-    for user in users:
-        user.save()
+    if not User.find_by_email("abby@example.com"):
+        users = [
+            User("Abby", "abby@example.com"),
+            User("Trevis", "trevis@example.com"),
+        ]
+        for user in users:
+            try:
+                user.save()
+                print(f"User {user.name} saved.")
+            except Exception as e:
+                print(f"Failed to save user {user.name}: {e}")
+    else:
+        print("Users already exist — skipping user seeding.")
 
     
     pizzas = [
@@ -54,10 +60,17 @@ def seed_data():
         Pizza("Veggie", "Medium", 10.0, ["Tomato", "Onion", "Bell Pepper"]),
     ]
     for pizza in pizzas:
-        pizza.save() 
+        try:
+            pizza.save()
+            print(f"Pizza {pizza.name} saved.")
+        except Exception as e:
+            print(f"Failed to save pizza {pizza.name}: {e}")
 
+def main():
+    create_tables()
+    seed_data()
+    CONN.close()
     print("Database seeded successfully.")
 
 if __name__ == "__main__":
-    create_tables()
-    seed_data()
+    main()

@@ -29,14 +29,14 @@ class User:
             CONN.commit()
             self.id = None
 
-    
+    @classmethod
     def get_all(cls):
         """Return a list of all users."""
         CURSOR.execute("SELECT * FROM users")
         rows = CURSOR.fetchall()
         return [cls(id=row[0], name=row[1], email=row[2]) for row in rows]
 
-    
+    @classmethod
     def find_by_id(cls, user_id):
         """Find a user by ID."""
         CURSOR.execute("SELECT * FROM users WHERE id = ?", (user_id,))
@@ -45,7 +45,7 @@ class User:
             return cls(id=row[0], name=row[1], email=row[2])
         return None
 
-    
+    @classmethod
     def find_by_email(cls, email):
         """Find a user by email."""
         CURSOR.execute("SELECT * FROM users WHERE email = ?", (email,))
