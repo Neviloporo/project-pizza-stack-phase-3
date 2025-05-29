@@ -53,6 +53,7 @@ class User:
         if row:
             return cls(id=row[0], name=row[1], email=row[2])
         return None
-
+    
+    
     def __repr__(self):
         return f"<User id={self.id} name={self.name} email={self.email}>"

@@ -54,17 +54,19 @@ def seed_data():
     else:
         print("Users already exist — skipping user seeding.")
 
-    
     pizzas = [
         Pizza("Pepperoni", "Large", 12.5, ["Pepperoni", "Cheese"]),
         Pizza("Veggie", "Medium", 10.0, ["Tomato", "Onion", "Bell Pepper"]),
     ]
     for pizza in pizzas:
-        try:
-            pizza.save()
-            print(f"Pizza {pizza.name} saved.")
-        except Exception as e:
-            print(f"Failed to save pizza {pizza.name}: {e}")
+        if not Pizza.find_by_name_size_price(pizza.name, pizza.size, pizza.price):
+            try:
+                pizza.save()
+                print(f"Pizza {pizza.name} saved.")
+            except Exception as e:
+                print(f"Failed to save pizza {pizza.name}: {e}")
+    else:
+        print(f"Pizza {pizza.name} already exists — skipping.")
 
 def main():
     create_tables()

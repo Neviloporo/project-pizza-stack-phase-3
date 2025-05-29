@@ -24,6 +24,13 @@ class Order:
             self.id = CURSOR.lastrowid
         CONN.commit()
 
+    def delete(self):
+        if self.id:
+            CURSOR.execute("DELETE FROM orders WHERE id = ?", (self.id,))
+            CONN.commit()
+            print(f"Order #{self.id} has been deleted.")
+            self.id = None
+
     @classmethod
     def get_all(cls):
         """Return a list of all Order instances from the database."""

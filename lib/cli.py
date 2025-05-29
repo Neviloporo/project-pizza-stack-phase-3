@@ -33,6 +33,20 @@ def display_orders():
     else:
         print("No orders found.")
 
+def add_pizza():
+    name = input("Pizza name: ")
+    size = input("Size (Small/Medium/Large): ")
+    price = float(input("Price: "))
+    toppings = input("Toppings (comma-separated): ").split(",")
+
+    
+    toppings = [t.strip() for t in toppings if t.strip()]
+
+    pizza = Pizza(name=name, size=size, price=price, toppings=toppings)
+    pizza.save()
+    print(f"Pizza '{pizza.name}' added successfully!")
+
+
 def place_order():
     display_users()
     user_id = get_input("Enter User ID: ", cast=int)
@@ -55,13 +69,42 @@ def place_order():
     except Exception as e:
         print("Error placing order:", e)
 
+def add_user():
+    name = input("Enter user's name: ")
+    email = input("Enter user's email: ")
+
+    if User.find_by_email(email):
+        print("A user with this email already exists.")
+        return
+
+    user = User(name=name, email=email)
+    user.save()
+    print(f"User '{user.name}' added successfully!")
+
+def remove_order():
+    display_orders()
+    order_id = input("Enter Order ID to delete: ").strip()
+
+    try:
+        order_id = int(order_id)
+        order = OrderList.find_order_by_id(order_id)
+        if order:
+            order.delete()
+        else:
+            print("Order not found.")
+    except ValueError:
+        print("Invalid input. Please enter a valid Order ID.")
+
 def menu():
     options = {
         "1": ("View all users", display_users),
         "2": ("View all pizzas", display_pizzas),
         "3": ("Place an order", place_order),
         "4": ("View all orders", display_orders),
-        "5": ("Exit", None),
+        "5": ("Add new pizza", add_pizza),
+        "6": ("Add new user", add_user),
+        "7": ("Remove an order", remove_order),
+        "8": ("Exit", None),
     }
 
     while True:
@@ -72,11 +115,12 @@ def menu():
         choice = input("Choose an option: ").strip()
 
         if choice in options:
-            if choice == "5":
+            action = options[choice][1]
+            if action:
+                action()
+            else:
                 print("Goodbye!")
                 break
-            else:
-                options[choice][1]()
         else:
             print("Invalid choice. Please try again.")
 
