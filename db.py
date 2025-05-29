@@ -1,4 +1,4 @@
 import sqlite3
 
-CONN = sqlite3.connect('recipe.db')
+CONN = sqlite3.connect('db.py')
 CURSOR = CONN.cursor()
