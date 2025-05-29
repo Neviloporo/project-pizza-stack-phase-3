@@ -1,4 +1,4 @@
-from db import CURSOR, CONN
+from lib.db import CURSOR, CONN
 
 def create_tables():
     CURSOR.execute("""

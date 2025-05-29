@@ -1,4 +1,4 @@
-from db import CURSOR, CONN
+from lib.db import CURSOR, CONN
 
 class Order:
     def __init__(self, user_id, pizza_id, quantity=1, completed=False, id=None):

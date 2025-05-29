@@ -1,4 +1,4 @@
-from db import CURSOR, CONN
+from lib.db import CURSOR, CONN
 
 class Pizza:
     def __init__(self, name, size, price, toppings=None, id=None):

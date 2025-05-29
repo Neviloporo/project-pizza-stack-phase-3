@@ -1,4 +1,4 @@
-from db import CURSOR, CONN
+from lib.db import CURSOR, CONN
 
 class User:
     def __init__(self, name, email, id=None):
